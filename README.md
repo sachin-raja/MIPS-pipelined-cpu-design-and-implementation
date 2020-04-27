@@ -7,18 +7,18 @@ MIPS Architecture comprised of several instructions that is utilized to implemen
 
 R type:
 R-type instruction format is given below:
-  ![](ArduinoController.png)
+  ![](rtype.png)
 Here op is called as the opcode that determines the operation i.e. the specific instruction, funct is called as the function code is used to determine the instruction that carried out. Rs and Rt are the two source read registers, Rd is the destination register where the result of the execution is stored, and shamt is the shift amount by which the data has to be shifted.
 
 I Type:
 The I type instruction format is below:
- ![](ArduinoController.png) 
+ ![](itype.png) 
 
 Here op is called as the opcode that determines the operation i.e. the specific instruction, Rs and Rt are the two source read registers, Rd is the destination register where the result of the execution is stored, and shamt is the shift amount by which the data has to be shifted. Rs register is the immediate value as the other operand for the operation. Rt the destination register is where the result is stored.
 
 J Type:
 The J type instruction format is below:
-  ![](ArduinoController.png)
+  ![](jtype.png)
 Here op is called as the opcode that determines the operation i.e. the specific instruction, Rs and Rt are the two source read registers, Rd is the destination register where the result of the execution is stored
 This project described in this report is designed for only some instructions focused on the datapath of the processor that consists of the IR, memory, ALU, MUX’s etc. The processor can compute 32 bits of data overall in addition to the individual components that can also compute 32 bits.
 
@@ -29,4 +29,4 @@ Most instructions in the MIPS instruction set are register operation instruction
 In the IF Stage (Instruction Stage), the address of the next location (PC + 4) and the instruction to ID Stage (Instruction Decode). In the ID stage the instruction is decoded and sent the appropriate signals to EX stage (Execution Stage), these signals also include register output files, the sign-extended immediate value, rt and rd register values. During the EX (Execution Stage), some signals are sent to MEM (Memory Stage) this stage includes RegWrite (writing to register), MemRead (Reading from Memory), MemWrite (Writing to memory), MemtoReg (transfer from Memory from register) and Branch statements, address of the branch, ALU Results, the register output files (RtData), and the write-back (WB) address of register. During the MEM (Memory Stage), The signals RegWrite, RegtoMem, ALU result, write-back (WB) address and the output of DataRAM to WB. In WB, we write the data back to registers.
 The below figure shows the architecture of MIPS with a Pipelined datapath operation.
 
- ![](ArduinoController.png)
+ ![](systemdesign.png)
