@@ -1,2 +1,32 @@
 # MIPS-Pipelined-CPU-Design-and-Implementation
-MIPS Pipelined CPU Design and Implementation
+
+The design, implementation and simulation of a pipelined multicycle version of the 32-bit MIPS processor datapath is described in this report. Behavioral and structural modelling of the design is simulated using VHDL using Xilinx ISE Simulator. This implemented processor can only support a few of the instructions in the MIPS 32-bit ISA, more instructions can be added to the implemented design by adding and modifying a few components. The custom processor is designed and simulated implementing the instructions: Subtraction (sub), Binary AND (and), Binary Or (or),  Load Word (lw), Jump (j), Store Word (sw), Addition (CLA and RCA) (add), Immediate Binary AND (andi), Immediate Binary Or (ori), Set On Less (slt), and Binary NOR (nor). This datapath includes the implementation of the PC, Memory (MEM), Register file (REG), ALU, MUXs for signal selection, Shifter for shifting operations, Sign-Extender, IR and all other required components. An external clock is used to drive the processor. The result is the simulation of the processor using a test bench code consisting the control logic for the various cycles for all the instructions and the simulations are obtained. 
+
+A processor is an Integrated Circuit that consists of the different blocks such as the ALU (Arithmetic Logic Unit), Control Unit, Memory unit that computes and gives out the required information that is useful when a request is sent to it. Various inputs are given to the Processor based on the user’s choice and the requirements. Based on the types of inputs that includes the real-time data which can be an integer, a character etc. This input data is something that is not understood by the processor and is required to be converted to the binary which the processor can understand using several algorithms. Since it is very tedious for us to code in 0’s and 1’s we will use a translator that can convert our program that is written in a higher-level language (C, Verilog, VHDL) to 0’s and 1’s which the CPU can understand this translator is also called a compiler. 
+MIPS Architecture comprised of several instructions that is utilized to implement the program written in the high-level language. MIPS has three different types of instruction based on the usage: R type, I type, and J type. R type are the one of the most common form of instructions used.
+
+R type:
+R-type instruction format is given below:
+ 
+Here op is called as the opcode that determines the operation i.e. the specific instruction, funct is called as the function code is used to determine the instruction that carried out. Rs and Rt are the two source read registers, Rd is the destination register where the result of the execution is stored, and shamt is the shift amount by which the data has to be shifted.
+
+I Type:
+The I type instruction format is below:
+ 
+
+Here op is called as the opcode that determines the operation i.e. the specific instruction, Rs and Rt are the two source read registers, Rd is the destination register where the result of the execution is stored, and shamt is the shift amount by which the data has to be shifted. Rs register is the immediate value as the other operand for the operation. Rt the destination register is where the result is stored.
+
+J Type:
+The J type instruction format is below:
+ 
+Here op is called as the opcode that determines the operation i.e. the specific instruction, Rs and Rt are the two source read registers, Rd is the destination register where the result of the execution is stored
+This project described in this report is designed for only some instructions focused on the datapath of the processor that consists of the IR, memory, ALU, MUX’s etc. The processor can compute 32 bits of data overall in addition to the individual components that can also compute 32 bits.
+
+A pipelined CPU has high performance due to its parallel processing strategy where instructions executed in five different stages namely IF, ID, EX, MEM, and WB. Hence, in a MIPS pipelined CPU the efficiency is almost several times higher than a 1-clock CPU. Due to hazards the CPU pipeline the efficiency reduces and sometimes severely destroy a pipeline CPU if not implemented properly. At any time, the CPU processes multiple instructions at the same time. These instructions are in different operating cycles and use different physical devices.
+The idea behind the design of a pipelined CPU is to send the appropriate data generated to the current stage from the previous stage. All MIPS instructions are the same length and this design will simplify instruction fetch logic and instruction decoding logic, so that the instruction fetch cycle and instruction decode ID cycle can be executed at a faster speed.
+We know that there are only several instruction types in the MIPS instruction set, such as R type, I type, and J type. In this way, the position of each field in the instruction word is relatively fixed. The register numbers of the source and destination operands are easily separated from the instruction. In this way, the source operand of the instruction can be read from the register file while the instruction is being decoded, thereby simplifying the instruction cycle.
+Most instructions in the MIPS instruction set are register operation instructions, and only the load instruction and the store instruction relate to memory operations. In this way, the operation of memory access is very simple, which can reduce the time of memory access.The MIPS instruction is aligned in memory by 32 bits. In this way, it is possible to read an instruction word with only one memory operation, thereby reducing the instruction read time.
+In the IF Stage (Instruction Stage), the address of the next location (PC + 4) and the instruction to ID Stage (Instruction Decode). In the ID stage the instruction is decoded and sent the appropriate signals to EX stage (Execution Stage), these signals also include register output files, the sign-extended immediate value, rt and rd register values. During the EX (Execution Stage), some signals are sent to MEM (Memory Stage) this stage includes RegWrite (writing to register), MemRead (Reading from Memory), MemWrite (Writing to memory), MemtoReg (transfer from Memory from register) and Branch statements, address of the branch, ALU Results, the register output files (RtData), and the write-back (WB) address of register. During the MEM (Memory Stage), The signals RegWrite, RegtoMem, ALU result, write-back (WB) address and the output of DataRAM to WB. In WB, we write the data back to registers.
+The below figure shows the architecture of MIPS with a Pipelined datapath operation.
+
+
